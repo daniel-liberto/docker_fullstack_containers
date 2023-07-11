@@ -12,7 +12,7 @@ const app = express();
 
 const accessLogStream = fs.createWriteStream(
   path.join(__dirname, 'logs', 'access.log'),
-  { flags: 'a' }
+  { flags: 'a' },
 );
 
 app.use(morgan('combined', { stream: accessLogStream }));
@@ -84,7 +84,8 @@ app.delete('/goals/:id', async (req, res) => {
 });
 
 mongoose.connect(
-  'mongodb://localhost:27017/course-goals',
+  'mongodb://host.docker.internal:27017/course-goals',
+  // 'mongodb://localhost:27017/course-goals',
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -97,5 +98,5 @@ mongoose.connect(
       console.log('CONNECTED TO MONGODB');
       app.listen(80);
     }
-  }
+  },
 );
